@@ -10,7 +10,6 @@ script = ExtResource("1_37kl0")
 script = ExtResource("2_8uh7m")
 base_url = "https://api.deepseek.com/chat/completions"
 model = "deepseek-chat"
-api_key = "sk-877e0734077c46a7948a869b955ed840"
 stream = true
 metadata/_custom_type_script = "uid://iq7vf7dho1tb"
 
