@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://cgxt7bnw1wjp0"]
+
+[ext_resource type="Script" uid="uid://hnxh7glkx1kx" path="res://addons/apprentice/component/role/role.gd" id="1_4t5ie"]
+[ext_resource type="Script" uid="uid://bldf82gcn364b" path="res://addons/apprentice/src/node/else/state_node.gd" id="3_1p8vo"]
+[ext_resource type="Script" uid="uid://ck5lobxlgnvb" path="res://addons/apprentice/src/dynamic_properties/dynamic_properties.gd" id="3_60jhg"]
+[ext_resource type="Script" uid="uid://bdtluheup4maa" path="res://addons/apprentice/src/node/else/data_management/data_management.gd" id="3_lgq25"]
+[ext_resource type="Script" uid="uid://befsh872aouj3" path="res://addons/apprentice/src/node/else/timeline/skill_actuator.gd" id="4_d5eku"]
+[ext_resource type="Script" uid="uid://ciiwradynvyu4" path="res://addons/apprentice/component/role/role_move_component.gd" id="5_g7du7"]
+[ext_resource type="Script" uid="uid://bbvfgbaflsrr0" path="res://addons/apprentice/component/role/damag_component.gd" id="7_fc3jp"]
+[ext_resource type="Script" uid="uid://dke74eodime1" path="res://addons/apprentice/component/role/uncontrollable_controller.gd" id="8_fc3jp"]
+
+[node name="Role" type="Node2D" node_paths=PackedStringArray("body", "canvas", "properties", "states", "inventory", "skill_actuator", "move_component", "damage_component", "uncontrollable_controller") groups=["Role"]]
+script = ExtResource("1_4t5ie")
+body = NodePath("CharacterBody2D")
+canvas = NodePath("CharacterBody2D/canvas")
+properties = NodePath("component/DynamicProperties")
+states = NodePath("component/StateRoot")
+inventory = NodePath("component/Inventory")
+skill_actuator = NodePath("component/SkillActuator")
+move_component = NodePath("component/MoveComponent")
+damage_component = NodePath("component/DamageComponent")
+uncontrollable_controller = NodePath("controller/UncontrollableController")
+
+[node name="component" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="DynamicProperties" type="Node" parent="component"]
+script = ExtResource("3_60jhg")
+metadata/_custom_type_script = "uid://ck5lobxlgnvb"
+
+[node name="StateRoot" type="Node" parent="component"]
+script = ExtResource("3_1p8vo")
+metadata/_custom_type_script = "uid://bldf82gcn364b"
+
+[node name="SkillActuator" type="Node" parent="component"]
+script = ExtResource("4_d5eku")
+metadata/_custom_type_script = "uid://befsh872aouj3"
+
+[node name="Inventory" type="Node" parent="component"]
+script = ExtResource("3_lgq25")
+id_keys = ["id"]
+metadata/_custom_type_script = "uid://bdtluheup4maa"
+
+[node name="MoveComponent" type="Node2D" parent="component" node_paths=PackedStringArray("role")]
+script = ExtResource("5_g7du7")
+role = NodePath("../../CharacterBody2D")
+metadata/_custom_type_script = "uid://ciiwradynvyu4"
+
+[node name="DamageComponent" type="Node" parent="component"]
+script = ExtResource("7_fc3jp")
+metadata/_custom_type_script = "uid://bbvfgbaflsrr0"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="canvas" type="Node2D" parent="CharacterBody2D"]
+metadata/_edit_lock_ = true
+
+[node name="config" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="controller" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="UncontrollableController" type="Node" parent="controller" node_paths=PackedStringArray("role")]
+script = ExtResource("8_fc3jp")
+role = NodePath("../..")
